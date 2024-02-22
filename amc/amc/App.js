@@ -1,0 +1,232 @@
+import React, {useState} from 'react';
+import { Text, SafeAreaView, ScrollView, StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+
+
+
+  const App = () =>{
+    const[currentSection, setCurrentSection] = useState('name');
+
+    const resumeData = {
+      imageUrl: require('./myimage.jpg'),
+      name: 'Joshua S. Lenon',
+      course: 'Bachelor of Science in Information Technology',
+      education: {
+        elementary: 'Balingasa Elementary School',
+        elementaryYear: '2015',
+        highSchool: 'Balingasa High School and Systems Plus Computer College',
+        highSchoolYear: '2020',
+        college: 'Global Reciprocal Colleges',
+        collegeYear: '2021'
+      },
+
+      about: 'I am a student at Global Reciprocal College with focus in Bachelor of Science in Information Technology. I grew with in a small family and raise by my siblings because my parents are always at work. Ever since I was a teen I dedicated my spare time all about computer and techs. I have a passion and commitment when in it comes learning about computer codes or programming languages. I have also had the opportunity to learn even at home that focused on basic logic skills, communication, problem solving skills, and time management. When I graduate my plan is to apply to a tech company that will suit my skills and experience.',
+      projects:
+      {
+        projectName: 'Little Footsteps: A Journey into the Darkness',
+        imageUrl: require('./Icon.png'),
+        link: 'https://drive.google.com/drive/folders/1QfacRYIz5PN2F_-Y37Pmjj1_8r6b1kqH?usp=sharing',
+        description: 'Little Footsteps: A Journey into the Darkness is a Single Player, Third Person, Hybrid Adventure and 3D platformer game created by Grade 12 Senior High School students in Information Communications Technology strand for a Capstone Project at Systems Plus Computer College.',
+      },
+      
+      contact:{
+        mobile: '0928-295-6266',
+        email: 'joshualenon19@gmail.com or lenon.j.20210700284.grc@gmail.com'
+      },
+    };
+    const handlePress = () => {
+      setCurrentSection((prevSection) => {
+        switch(prevSection){
+          case 'name':
+            return 'education';
+          case 'education':
+            return 'about';
+          case 'about':
+            return 'projects';
+          case 'contact':
+            return 'name';
+          case 'projects':
+            return 'contact';
+          default:
+            return 'name';
+        }
+      });
+    };
+    return(
+      <SafeAreaView style={{ flex: 1 }}>
+        <ScrollView contentContainerStyle={styles.container}>
+          <TouchableOpacity onPress={handlePress} style={styles.container}>
+            {currentSection === 'name' && (
+              <>
+                <Image source={require('./myimage.jpg')} style={styles.image} />
+                <View style={styles.textContainer}>
+                  <Text style={styles.header}>{resumeData.name}</Text>
+                  <Text style= {styles.info}>{resumeData.course}</Text>
+                </View>
+                </> 
+            )}
+
+            {currentSection === 'education' && (
+              <View style={styles.textContainer}>
+                <Text style={styles.header}>Education:</Text>
+                <Text styles={styles.projectTitle}>
+                {'\n'}College:
+                {'\n'}
+                  </Text>
+                <Text style={styles.info}>{resumeData.education.college}</Text>
+              {'  |  '}
+              
+                <Text style={styles.projectTitle}>
+                {'\n'}High School:
+                {'\n'}
+                </Text>
+                <Text style={styles.info}>{resumeData.education.highSchool}</Text>
+              {'  |  '}
+
+              <Text style={styles.projectTitle}>
+                {'\n'}Elementary:
+                {'\n'}
+              </Text>
+              <Text style={styles.info}>{resumeData.education.elementary}</Text>
+              {'  |  '}
+            </View>
+            )
+            }
+            {currentSection === 'about' &&(
+              <View style={styles.aboutContainer}>
+              <Text style={styles.header1}>About me:{'\n'}</Text>
+              <Text style={styles.about}>{resumeData.about}</Text>
+              </View>
+
+            )
+            }
+
+            {currentSection === 'contact' && (
+              <View style={styles.contactContainer}>
+              <Text style={styles.header1}>Contact Me:{'\n'}</Text>
+               <Text style={styles.info}>
+               {'\n'}Mobile: {resumeData.contact.mobile}
+               {'\n'}Email: {resumeData.contact.email}
+               </Text>
+              </View>
+            )}
+
+            {
+              currentSection === 'projects' && (
+              <View style={styles.projectsContainer}>
+                <Text style={styles.header}>Projects:</Text>
+
+              <Text style={styles.projectTitle}>{resumeData.projects.projectName}</Text>
+              <Image source={require('./Icon.png')} style={styles.projectImage}/>
+              <Text style={styles.header}>Project Link:</Text>
+
+                <Text style={styles.projectLink}>{resumeData.projects.link}</Text>
+                <Text style={styles.projectDescription}>Description:</Text>
+
+              <Text style={styles.about}>{resumeData.projects.description}</Text>
+              
+              </View>
+    
+        )}
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  image: {
+    width: 200,
+    height: 200,
+    resizeMode: 'cover',
+  },
+  textContainer: {
+    alignItems: 'center',
+    marginVertical: 10,
+    justifyContent: 'center',
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
+    textAlign: 'center',
+    
+  },
+  info: {
+    fontSize: 18,
+    marginTop: 5,
+    alignItems: 'center',
+    textAlign: 'center',
+  },
+  projectTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    textAlign: 'center',
+    paddingLeft: 35,
+    paddingRight: 35,
+    
+  },
+  header1:{
+    fontSize: 40,
+    fontWeight: 'bold',
+    alignItems: 'center',
+    marginBottom: 10,
+    textAlign: 'center',
+    color: '#333',
+  },
+  about: {
+    justifyContent: 'center',
+    fontSize: '16',
+    lineHeight: 22,
+    textAlign: 'center',
+    alignSelf:'flex-start',
+    paddingLeft: 25,
+    paddingRight: 25,
+
+  },
+
+  projectLink:{   
+    textAlign:'center',
+    fontSize: 8,
+  },
+  projectImage:{
+    width: 380,
+    height: 360,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent:'center'
+  },
+ projectDescription:{
+   fontSize: 18,
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    textAlign: 'center',
+    paddingLeft: 25,
+    paddingRight: 25,
+    
+ },
+  
+  
+    aboutContainer: {
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    backgroundColor: '#f5f5f5', // Light background color
+    borderRadius: 10,
+    marginVertical: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    }
+});
+
+export default App;
